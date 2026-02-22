@@ -1,16 +1,73 @@
-# React + Vite
+# React Tasks
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React task app with:
 
-Currently, two official plugins are available:
+- markdown-backed task storage (`server/tasks/*.md`)
+- a local Node API (`server/index.js`)
+- tag-based filtering (multi-select)
+- task edit modal
+- logbook view for task/tag delete and completion events
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Run Locally
 
-## React Compiler
+Install dependencies:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+```
 
-## Expanding the ESLint configuration
+Start the markdown API (port `3001`):
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm run api
+```
+
+In a second terminal, start the Vite frontend (port `5173`):
+
+```bash
+npm run dev
+```
+
+Open:
+
+- Frontend: `http://localhost:5173`
+- API: `http://localhost:3001`
+
+## Available Scripts
+
+- `npm run dev` - Start Vite dev server
+- `npm run api` - Start local Node API for markdown task storage
+- `npm run build` - Build production frontend
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+## Data Storage
+
+Task files are stored as markdown with frontmatter:
+
+- `server/tasks/*.md`
+
+Example fields:
+
+- `id`
+- `title`
+- `tags`
+- `done`
+- `order`
+- `createdAt`
+- `updatedAt`
+
+Task description content is stored in the markdown body.
+
+## Logbook
+
+The app records task and tag events in a logbook file used by the Logbook view:
+
+- `server/logbook/logbook.jsonl`
+
+This file is runtime data and is intentionally ignored by Git.
+
+## Notes
+
+- The Vite dev server proxies `/api/*` requests to `http://localhost:3001`.
+- Sample task markdown files are included so the app has useful first-run data.
