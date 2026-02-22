@@ -1,0 +1,590 @@
+:root {
+  --bg: #f3f4f6;
+  --panel: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --line: rgba(15, 23, 42, 0.08);
+  --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  height: 100vh;
+}
+
+.sidebar {
+  padding: 18px;
+  border-right: 1px solid var(--line);
+}
+
+.appTitle {
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  margin: 6px 8px 18px;
+}
+
+.nav { display: grid; gap: 6px; margin-bottom: 18px; }
+.navItem {
+  text-align: left;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  color: var(--text);
+}
+.navItem:hover { background: rgba(15, 23, 42, 0.04); }
+.navItem.active {
+  background: rgba(15, 23, 42, 0.06);
+  border-color: rgba(15, 23, 42, 0.08);
+}
+
+.sectionTitle {
+  margin: 14px 8px 8px;
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.projects { display: grid; gap: 6px; }
+.projectItem {
+  text-align: left;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.projectItem:hover { background: rgba(15, 23, 42, 0.04); }
+
+.main {
+  padding: 26px;
+  overflow: auto;
+}
+
+.errorBanner {
+  margin-bottom: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(185, 28, 28, 0.18);
+  background: rgba(254, 242, 242, 0.95);
+  color: #991b1b;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.listHeader h1 {
+  margin: 0 0 14px;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+}
+
+.listHeaderMetaRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.subtleMeta {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.tagFilters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tagFilterButton {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.tagFilterButton.active {
+  background: rgba(15, 23, 42, 0.06);
+  color: var(--text);
+  border-color: rgba(15, 23, 42, 0.14);
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.statusBanner {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.taskRow {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  transition: transform 150ms cubic-bezier(.2,.8,.2,1), box-shadow 150ms ease;
+}
+.taskRow:last-child { border-bottom: none; }
+
+.taskRow:active {
+}
+
+.taskRow.dragging {
+  box-shadow: 0 8px 20px rgba(15,23,42,0.08);
+}
+
+.checkboxButton {
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(15, 23, 42, 0.28);
+  background: transparent;
+}
+.checkbox.checked {
+  border-color: rgba(15, 23, 42, 0.18);
+  background: rgba(15, 23, 42, 0.10);
+}
+
+.taskContentButton {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.taskContentButton:hover .taskContentTitle {
+  color: #0b1220;
+}
+
+.taskContent {
+  display: grid;
+  gap: 4px;
+}
+
+.taskContentTitle {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.taskContentDescription {
+  display: block;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+.taskTagBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(15, 23, 42, 0.04);
+  color: #334155;
+  font-size: 12px;
+  line-height: 1;
+  padding: 4px 8px;
+}
+
+.taskTagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.taskContentTitle.done,
+.taskContentDescription.done {
+  color: rgba(15, 23, 42, 0.45);
+}
+
+.taskContentTitle.done {
+  text-decoration: line-through;
+}
+
+.quickEntryInput, .quickEntryInput:focus{
+  font-size: 16px;
+  margin-left: 32px;
+  border: none;
+  outline: none;
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1000;
+}
+
+.hamburger span {
+  width: 24px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+.hamburger.open span:nth-child(1) {
+  transform: rotate(45deg) translateY(9px);
+}
+
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-9px);
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.85);
+  z-index: 999;
+}
+
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  z-index: 1200;
+}
+
+.modalCard {
+  width: min(560px, 100%);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.2);
+  overflow: hidden;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.modalHeader h2 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+}
+
+.iconButton {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: #fff;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--muted);
+}
+
+.editTaskForm {
+  display: grid;
+  gap: 10px;
+  padding: 18px 20px 20px;
+}
+
+.fieldLabel {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.fieldInput,
+.fieldTextarea {
+  width: 100%;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 12px;
+  background: #fff;
+  padding: 12px 14px;
+  font: inherit;
+  color: var(--text);
+}
+
+.fieldTextarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.fieldInput:focus,
+.fieldTextarea:focus {
+  outline: 2px solid rgba(15, 23, 42, 0.12);
+  border-color: rgba(15, 23, 42, 0.22);
+}
+
+.tagEditor {
+  display: grid;
+  gap: 10px;
+}
+
+.tagChipList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tagChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  background: rgba(15, 23, 42, 0.04);
+  padding: 6px 8px 6px 10px;
+  font-size: 13px;
+}
+
+.tagChipRemove {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0;
+}
+
+.tagEditorRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.tagEditorRow .fieldInput {
+  flex: 1;
+}
+
+.tagEditorRow .secondaryButton {
+  white-space: nowrap;
+}
+
+.tagPickerList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tagPickerButton {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.tagPickerButton.selected {
+  background: rgba(15, 23, 42, 0.06);
+  color: var(--text);
+  border-color: rgba(15, 23, 42, 0.14);
+}
+
+.modalActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.primaryButton,
+.secondaryButton {
+  border-radius: 12px;
+  padding: 10px 14px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.primaryButton {
+  border: 1px solid rgba(15, 23, 42, 0.9);
+  background: #0f172a;
+  color: #fff;
+}
+
+.secondaryButton {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--text);
+}
+
+.listFooterActions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 12px;
+}
+
+.logbookHeaderActions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.dangerButton {
+  border-radius: 12px;
+  padding: 10px 14px;
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid rgba(185, 28, 28, 0.2);
+  background: rgba(254, 242, 242, 0.9);
+  color: #b91c1c;
+}
+
+.dangerButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.emptyLogbook {
+  padding: 18px 16px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.logEntry {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 4px;
+}
+
+.logEntry:last-child {
+  border-bottom: none;
+}
+
+.logEntryTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.logEntryTime {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.logEntryMeta {
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.35;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .overlay {
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 280px;
+    background: var(--bg);
+    z-index: 999;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+    padding-top: 60px;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .main {
+    padding: 52px 26px 26px 16px;
+  }
+
+  .modalBackdrop {
+    align-items: end;
+    padding: 12px;
+  }
+
+  .modalCard {
+    width: 100%;
+    max-height: 88vh;
+    overflow: auto;
+  }
+
+  .tagEditorRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
